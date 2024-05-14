@@ -44,7 +44,7 @@ const verifyCode = (req, res) => {
   console.log("req.body: ", req.body.email, req.body.code);
   const { email, code } = req.body;
   const validCode = verificationCodes[email];
-
+  console.log("ValidCode: ", code);
   if (parseInt(code) === validCode) {
     delete verificationCodes[email]; // Remove code after verification
     res.json({ msg: "Verification successful" });
