@@ -23,8 +23,8 @@ let verificationCodes = {};
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: "smartdev0214@gmail.com",
-    pass: "sriy vyti ubvq rnyc",
+    user: "auth@lucidia.io",
+    pass: process.env.EMAIL_PASSWORD,
   },
 });
 
