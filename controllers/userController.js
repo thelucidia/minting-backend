@@ -86,14 +86,7 @@ const checkMembershipForTelegram = async (req, res) => {
   const { username } = req.body;
 
   try {
-    const admins = await bot.getChatAdministrators(process.env.TEL_GROUP_ID);
-    console.log(admins);
-    const adminMember = admins.find(admin => admin.user.username === username);
-    if (adminMember) {
-      return res.json({ membership: "Admin" });
-    }
-
-    const memberStatus = await bot.getChatMember(groupId, username);
+    const memberStatus = await bot.getChatMember(process.env.TEL_GROUP_USERNAME, parseInt(username));
     if (['member', 'administrator', 'creator'].includes(memberStatus.status))
       return res.json({ membership: memberStatus.status });
 
