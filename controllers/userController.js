@@ -83,7 +83,17 @@ const checkFollowingTwitter = async (req, res) => {
 }
 
 const checkMembershipForTelegram = async (req, res) => {
-  const { username } = req.body;
+  let { username } = req.body;
+
+  const pattern = /[@\/]?(\w+)$/;
+  const match = username.match(pattern);
+
+  if (match) {
+    username = match[1];
+  } else {
+    return res.json({ membership: "none" });
+  }
+
   let userid = 0;
   try {
     const administrators = await bot.getChatAdministrators(process.env.TEL_GROUP_USERNAME);
