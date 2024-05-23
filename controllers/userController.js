@@ -84,9 +84,13 @@ const checkFollowingTwitter = async (req, res) => {
 
 const checkMembershipForTelegram = async (req, res) => {
   const { username } = req.body;
-
+  let userid = 0;
   try {
-    const memberStatus = await bot.getChatMember(process.env.TEL_GROUP_USERNAME, parseInt(username));
+    const administrators = await bot.getChatAdministrators(process.env.TEL_GROUP_USERNAME);
+    if (administrators.some(administrator => administrator.user.username === username))
+      return res.json({ membership: "administrator" });
+
+    const memberStatus = await bot.getChatMember(process.env.TEL_GROUP_USERNAME, userid);
     if (['member', 'administrator', 'creator'].includes(memberStatus.status))
       return res.json({ membership: memberStatus.status });
 
