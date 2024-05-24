@@ -32,6 +32,9 @@ const transporter = nodemailer.createTransport({
 const sendCode = async (req, res) => {
   const { email } = req.body;
   const code = Math.floor(1000 + Math.random() * 9000);
+  if (verificationCodes[email]) {
+    return res.json({msg: "You already sent request for email verification"});
+  }
   verificationCodes[email] = code; // Store code
   try {
     const mailOptions = {
