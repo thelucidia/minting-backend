@@ -115,7 +115,8 @@ const checkMembershipForTelegram = async (req, res) => {
 }
 
 const checkMembershipForDiscord = async (req, res) => {
-  const { username } = req.body;
+  let { username } = req.body;
+  username = username.toLowerCase();
 
   try {
     const guild = await client.guilds.cache.get(process.env.DIS_SERVER_ID);
