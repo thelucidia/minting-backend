@@ -69,7 +69,17 @@ const verifyCode = (req, res) => {
 };
 
 const checkFollowingTwitter = async (req, res) => {
-  const { username } = req.body;
+  let { username } = req.body;
+
+  username = username.toLowerCase();
+  const pattern = /[@\/]?(\w+)$/;
+  const match = username.match(pattern);
+
+  if (match) {
+    username = match[1];
+  } else {
+    return res.json({ follows: false });
+  }
 
   if (!username) {
     return res.status(400).json({ error: 'username is required' });
