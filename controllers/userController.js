@@ -116,7 +116,16 @@ const checkMembershipForTelegram = async (req, res) => {
 
 const checkMembershipForDiscord = async (req, res) => {
   let { username } = req.body;
+
   username = username.toLowerCase();
+  const pattern = /[@\/]?(\w+)$/;
+  const match = username.match(pattern);
+
+  if (match) {
+    username = match[1];
+  } else {
+    return res.json({ membership: "none" });
+  }
 
   try {
     const guild = await client.guilds.cache.get(process.env.DIS_SERVER_ID);
