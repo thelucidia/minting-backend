@@ -98,6 +98,7 @@ const checkFollowingTwitter = async (req, res) => {
 const checkMembershipForTelegram = async (req, res) => {
   let { username } = req.body;
 
+  username = username.toLowerCase();
   const pattern = /[@\/]?(\w+)$/;
   const match = username.match(pattern);
 
