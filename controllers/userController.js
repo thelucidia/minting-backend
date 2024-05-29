@@ -76,10 +76,10 @@ const checkFollowingTwitter = async (req, res) => {
   }
 
   try {
-    const followingList = await twitterClient.get('friends/list', {
-      screen_name: 'lucidia_io'
-    });
-    console.log(followingList);
+    res.json({follows: false});
+    // const followingList = await twitterClient.get('friends/list', {
+    //   screen_name: 'lucidia_io'
+    // });
   } catch (error) {
     console.log(error);
   }
